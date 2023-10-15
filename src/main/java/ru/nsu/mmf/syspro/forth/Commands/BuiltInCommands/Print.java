@@ -7,11 +7,11 @@ public class Print implements Command {
     @Override
     public void apply(Context ctx){
         if (ctx.S.empty()){
-            System.out.print(" Error: pop from empty stack");
+            ctx.printer.print(" Error: pop from empty stack");
             ctx.error = true;
             return;
         }
-        System.out.printf(" %d", ctx.S.pop());
+        ctx.printer.print(" " + ctx.S.pop().toString());
         ctx.ok = false;
     }
 }

@@ -5,17 +5,23 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Context ctx = new Context();
+        Printer printer = new ConsolePrinter();
+        Context ctx = new Context(printer);
         Interpreter itr = new Interpreter(ctx);
         while(!ctx.exit){
             System.out.print("> ");
             String line = in.nextLine();
             String[] words = line.split(" ");
-            ctx.ok = true;
-            ctx.error = false;
             System.out.print("<");
             itr.interpret(words);
         }
         in.close();
+    }
+
+    private static class ConsolePrinter implements Printer{
+        @Override
+        public void print(String line){
+            System.out.print(line);
+        }
     }
 }

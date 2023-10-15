@@ -7,7 +7,7 @@ public class Less implements Command {
     @Override
     public void apply(Context ctx){
         if (ctx.S.size() < 2){
-            System.out.print(" Error: pop from empty stack");
+            ctx.printer.print(" Error: pop from empty stack");
             ctx.error = true;
             return;
         }

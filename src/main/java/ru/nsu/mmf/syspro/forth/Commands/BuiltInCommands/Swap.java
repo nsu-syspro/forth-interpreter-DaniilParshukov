@@ -7,13 +7,13 @@ public class Swap implements Command {
     @Override
     public void apply(Context ctx){
         if (ctx.S.size() < 2){
-            System.out.print(" Error: pop from empty stack");
+            ctx.printer.print(" Error: pop from empty stack");
             ctx.error = true;
             return;
         }
         int a = ctx.S.pop();
         int b = ctx.S.pop();
-        ctx.S.push(b);
         ctx.S.push(a);
+        ctx.S.push(b);
     }
 }

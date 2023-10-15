@@ -7,11 +7,19 @@ public class Emit implements Command {
     @Override
     public void apply(Context ctx){
         if (ctx.S.empty()){
-            System.out.print(" Error: pop from empty stack");
+            ctx.printer.print(" Error: pop from empty stack");
             ctx.error = true;
             return;
         }
-        System.out.printf(" %c", ctx.S.pop());
+        int n = ctx.S.pop();
+        if (n < 32 | n > 126){
+            ctx.printer.print(" Error: no ascii symbol");
+            ctx.S.push(n);
+            ctx.error = true;
+            return;
+        }
+        char c = (char) n;
+        ctx.printer.print(" " + c);
         ctx.ok = false;
     }
 }

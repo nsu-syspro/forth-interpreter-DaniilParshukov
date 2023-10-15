@@ -35,9 +35,11 @@ public class Interpreter {
 
     public void interpret(String[] words){
         pos = 0;
+        ctx.ok = true;
+        ctx.error = false;
         List<Command> commands = getCommands(words, null, null);
         if(commands == null){
-            System.out.println();
+            ctx.printer.print("\n");
             return;
         }
         for(int i = 0; i < commands.size(); i++){
@@ -47,16 +49,15 @@ public class Interpreter {
             }
         }
         if(ctx.ok & !ctx.error){
-            System.out.println(" ok");
+            ctx.printer.print(" ok\n");
         }else{
-            System.out.println();
+            ctx.printer.print("\n");
         }
     }
 
     private List<Command> getCommands(String[] words, String stopAt1, String stopAt2){
         List<Command> commands = new ArrayList<>();
         for(; pos < words.length; pos++){
-            //System.out.printf("@%s==%s@%b@ ", words[pos], stopAt1, words[pos].equals(stopAt1));
             if(words[pos].equals(stopAt1)){
                 if(pos + 1 < words.length){
                     if(words[pos + 1].equals(stopAt2)){
@@ -120,7 +121,7 @@ public class Interpreter {
                     yield new If(commands);
                 }
                 default -> {
-                    System.out.printf(" Error: unknow command (%s)", words[pos]);
+                    ctx.printer.print(" Error: unknow command (" + words[pos] + ")");
                     yield null;
                 }
             };
@@ -138,7 +139,7 @@ public class Interpreter {
             }
             ctx.ok = false;
         }
-        System.out.print(" Error: Absent \"");
+        ctx.printer.print(" Error: Absent \"");
         return null;
     }
 }

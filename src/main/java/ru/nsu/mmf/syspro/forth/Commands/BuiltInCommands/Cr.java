@@ -6,7 +6,7 @@ import ru.nsu.mmf.syspro.forth.Commands.Command;
 public class Cr implements Command {
     @Override
     public void apply(Context ctx){
-        System.out.println();
+        ctx.printer.print("\n");
         ctx.ok = false;
     }
 }

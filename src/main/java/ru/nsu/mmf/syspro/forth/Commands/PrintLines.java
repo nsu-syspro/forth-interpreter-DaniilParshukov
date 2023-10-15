@@ -10,8 +10,8 @@ public class PrintLines implements Command {
     @Override
     public void apply(Context ctx){
         for(String s:str){
-            System.out.print(" ");
-            System.out.print(s);
+            ctx.printer.print(" ");
+            ctx.printer.print(s);
         }
         ctx.ok = false;
     }

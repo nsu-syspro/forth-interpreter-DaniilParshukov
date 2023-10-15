@@ -7,7 +7,7 @@ public class Drop implements Command {
     @Override
     public void apply(Context ctx){
         if (ctx.S.empty()){
-            System.out.print(" Error: pop from empty stack");
+            ctx.printer.print(" Error: pop from empty stack");
             ctx.error = true;
         }
         ctx.S.pop();
