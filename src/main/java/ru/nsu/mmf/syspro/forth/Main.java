@@ -9,10 +9,11 @@ public class Main {
         Context ctx = new Context(printer);
         Interpreter itr = new Interpreter(ctx);
         while(!ctx.exit){
-            System.out.print("> ");
             String line = in.nextLine();
+            if (line.equals("")){
+                continue;
+            }
             String[] words = line.split(" ");
-            System.out.print("<");
             itr.interpret(words);
         }
         in.close();

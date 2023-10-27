@@ -17,17 +17,6 @@ public class InterpreterTest {
             this.sb = sb;
         }
     }
-    
-    @Test
-    public void emty(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
-        String[] words = "".split(" ");
-        interpreter.interpret(words);
-
-    }
 
     @Test
     public void namberOnSteck(){

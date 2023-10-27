@@ -5,5 +5,7 @@ in:
 emit
 
 out:
-1
-A
+ ok
+ 1
+ ok
+ A
