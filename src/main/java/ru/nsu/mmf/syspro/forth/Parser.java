@@ -57,7 +57,7 @@ public class Parser {
             }
         }
         if (stopAt1 != null){
-            System.out.printf(" Error: miss stopAt: %s %s", stopAt1, stopAt2);
+            ctx.printer.print(" Error: miss stopAt: " + stopAt1.toString() + " " + stopAt2.toString());
             return null;
         }
         return commands;
@@ -95,7 +95,6 @@ public class Parser {
                     yield new PrintLines(str);
                 }
                 case "if" -> {
-                    //if THEN_BRANCH then ;
                     pos++;
                     List<Command> commands = getCommands(words, "then", ";");
                     if(commands == null){

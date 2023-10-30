@@ -5,7 +5,7 @@ import java.util.List;
 import ru.nsu.mmf.syspro.forth.Context;
 
 public class PrintLines implements Command {
-    List<String> str;
+    private List<String> str;
 
     @Override
     public boolean apply(Context ctx){

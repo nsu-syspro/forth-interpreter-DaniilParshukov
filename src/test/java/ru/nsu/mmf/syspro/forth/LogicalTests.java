@@ -43,6 +43,14 @@ public class LogicalTests {
     }
 
     @Test
+    public void Equals3(){
+        Object[] date = create();
+        String[] words = "1 =".split(" ");
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
+    }
+
+    @Test
     public void Less1(){
         Object[] date = create();
         String[] words = "1 2 < .".split(" ");
@@ -59,6 +67,14 @@ public class LogicalTests {
     }
 
     @Test
+    public void Less3(){
+        Object[] date = create();
+        String[] words = "2 <".split(" ");
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
+    }
+
+    @Test
     public void More1(){
         Object[] date = create();
         String[] words = "2 1 > .".split(" ");
@@ -72,5 +88,13 @@ public class LogicalTests {
         String[] words = "2 2 > .".split(" ");
         ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
         TestCase.assertEquals(" 0\n", date[2].toString());
+    }
+
+    @Test
+    public void More3(){
+        Object[] date = create();
+        String[] words = "2 >".split(" ");
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 }

@@ -35,6 +35,14 @@ public class ArithmeticTests {
     }
 
     @Test
+    public void Plus2(){
+        Object[] date = create();
+        String[] words = "12 + .".split(" ");
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
+    }
+
+    @Test
     public void Divide(){
         Object[] date = create();
         String[] words = "4 2 / .".split(" ");
@@ -59,11 +67,27 @@ public class ArithmeticTests {
     }
 
     @Test
+    public void Divide3(){
+        Object[] date = create();
+        String[] words = "0 142 / .".split(" ");
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 0\n", date[2].toString());
+    }
+
+    @Test
     public void Minus(){
         Object[] date = create();
         String[] words = "3 5 - .".split(" ");
         ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
         TestCase.assertEquals(" -2\n", date[2].toString());
+    }
+
+    @Test
+    public void Minus2(){
+        Object[] date = create();
+        String[] words = "3 - . 1 2 -".split(" ");
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 
     @Test
@@ -80,6 +104,14 @@ public class ArithmeticTests {
         String[] words = "8 0 mod .".split(" ");
         ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
         TestCase.assertEquals(" Error: division by zero\n", date[2].toString());
+    }
+
+    @Test
+    public void Modulo2(){
+        Object[] date = create();
+        String[] words = "1 mod .".split(" ");
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 
     @Test

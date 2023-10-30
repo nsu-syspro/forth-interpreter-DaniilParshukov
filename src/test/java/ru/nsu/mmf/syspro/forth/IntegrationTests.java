@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class IntegrationTest {
+public class IntegrationTests {
 
     @Test
     public void testAll() throws URISyntaxException, IOException {
