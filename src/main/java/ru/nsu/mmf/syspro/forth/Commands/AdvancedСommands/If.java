@@ -18,7 +18,7 @@ public class If implements Command {
             for(Command cmd:commands){
                 error = cmd.apply(ctx);
                 if (error){
-                    break;      //to do
+                    return true;
                 }
             }
         }

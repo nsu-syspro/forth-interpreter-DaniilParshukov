@@ -56,7 +56,7 @@ public class Parser {
                 commands.add(cmd);
             }
         }
-        if(stopAt1 != null){
+        if (stopAt1 != null){
             System.out.printf(" Error: miss stopAt: %s %s", stopAt1, stopAt2);
             return null;
         }
@@ -114,7 +114,7 @@ public class Parser {
     private List<String> getLinesToPrint(String[] words){
         List<String> str = new ArrayList<>();
         while(++pos < words.length){
-            if(words[pos].charAt(words[pos].length() - 1) == '\"'){
+            if (words[pos].charAt(words[pos].length() - 1) == '\"'){
                 str.add(words[pos].substring(0, words[pos].length() - 1));
                 return str;
             }else{
