@@ -9,15 +9,15 @@ public class If implements Command {
     List<Command> commands;
     @Override
     public void apply(Context ctx){
-        if(ctx.S.size() < 1){
+        if (ctx.S.size() < 1){
             System.out.print(" Error: pop from empty stack");
             ctx.error = true;
             return;
         }
-        if(ctx.S.pop() != 0){
+        if (ctx.S.pop() != 0){
             for(Command cmd:commands){
                 cmd.apply(ctx);
-                if(ctx.error){
+                if (ctx.error){
                     break;
                 }
             }

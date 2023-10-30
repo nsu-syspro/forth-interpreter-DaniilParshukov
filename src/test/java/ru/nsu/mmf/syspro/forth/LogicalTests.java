@@ -17,69 +17,60 @@ public class LogicalTests {
         }
     }
 
-    @Test
-    public void Equals1(){
+    private Object[] create(){
         StringBuilder sb = new StringBuilder();
         Printer printer = new TestPrinter(sb);
         Context ctx = new Context(printer);
+        Parser parser = new Parser(ctx);
         Interpreter interpreter = new Interpreter(ctx);
+        return new Object[] {interpreter, parser, sb};
+    }
+
+    @Test
+    public void Equals1(){
+        Object[] date = create();
         String[] words = "5 5 = .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 1\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 1\n", date[2].toString());
     }
 
     @Test
     public void Equals2(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1 2 = .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 0\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 0\n", date[2].toString());
     }
 
     @Test
     public void Less1(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1 2 < .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 1\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 1\n", date[2].toString());
     }
 
     @Test
     public void Less2(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "2 2 < .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 0\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 0\n", date[2].toString());
     }
 
     @Test
     public void More1(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "2 1 > .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 1\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 1\n", date[2].toString());
     }
 
     @Test
     public void More2(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "2 2 > .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 0\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 0\n", date[2].toString());
     }
 }

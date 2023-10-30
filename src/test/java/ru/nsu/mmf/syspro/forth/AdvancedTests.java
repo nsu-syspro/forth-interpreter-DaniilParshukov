@@ -17,47 +17,44 @@ public class AdvancedTests {
         }
     }
 
-    @Test
-    public void if1(){
+    private Object[] create(){
         StringBuilder sb = new StringBuilder();
         Printer printer = new TestPrinter(sb);
         Context ctx = new Context(printer);
+        Parser parser = new Parser(ctx);
         Interpreter interpreter = new Interpreter(ctx);
+        return new Object[] {interpreter, parser, sb};
+    }
+
+    @Test
+    public void if1(){
+        Object[] date = create();
         String[] words = "1 if 1 . then ; 2 .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 1 2\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 1 2\n", date[2].toString());
     }
 
     @Test
     public void if2(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1 2 = if .\" 1=2\" then ;".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" ok\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" ok\n", date[2].toString());
     }
 
     @Test
     public void if3(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "8 4 2 0 dup 0 = if drop then ; / .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 2\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 2\n", date[2].toString());
     }
 
     @Test
     public void if4(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1 if then ;".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" ok\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" ok\n", date[2].toString());
     }
 }

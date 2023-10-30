@@ -8,13 +8,14 @@ public class Main {
         Printer printer = new ConsolePrinter();
         Context ctx = new Context(printer);
         Interpreter itr = new Interpreter(ctx);
+        Parser parser = new Parser(ctx);
         while(!ctx.exit){
             String line = in.nextLine();
             if (line.equals("")){
                 continue;
             }
             String[] words = line.split(" ");
-            itr.interpret(words);
+            itr.interpret(parser.pars(words));
         }
         in.close();
     }

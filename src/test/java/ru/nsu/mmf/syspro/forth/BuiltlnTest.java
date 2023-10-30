@@ -17,113 +17,92 @@ public class BuiltlnTest {
         }
     }
 
-    @Test
-    public void cr(){
+    private Object[] create(){
         StringBuilder sb = new StringBuilder();
         Printer printer = new TestPrinter(sb);
         Context ctx = new Context(printer);
+        Parser parser = new Parser(ctx);
         Interpreter interpreter = new Interpreter(ctx);
+        return new Object[] {interpreter, parser, sb};
+    }
+
+    @Test
+    public void cr(){
+        Object[] date = create();
         String[] words = "cr".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals("\n\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals("\n\n", date[2].toString());
     }
 
     @Test
     public void drop(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1 2 drop .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 1\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 1\n", date[2].toString());
     }
 
     @Test
     public void dup(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1 dup . .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 1 1\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 1 1\n", date[2].toString());
     }
 
     @Test
     public void emit(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "65 emit".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" A\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" A\n", date[2].toString());
     }
 
     @Test
     public void emit2(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "-3 emit".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" Error: no ascii symbol\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Error: no ascii symbol\n", date[2].toString());
     }
 
     @Test
     public void emit3(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1000 emit".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" Error: no ascii symbol\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Error: no ascii symbol\n", date[2].toString());
     }
 
     @Test
     public void over(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1 2 over . .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 1 2\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 1 2\n", date[2].toString());
     }
 
     @Test
     public void print(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1 0 -0 -1 65 . . . . .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 65 -1 0 0 1\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 65 -1 0 0 1\n", date[2].toString());
     }
 
     @Test
     public void rot(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1 2 3 rot . . .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 2 1 3\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 2 1 3\n", date[2].toString());
     }
 
     @Test
     public void swap(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1 2 swap . .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 1 2\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 1 2\n", date[2].toString());
     }
 }

@@ -18,70 +18,61 @@ public class InterpreterTest {
         }
     }
 
-    @Test
-    public void namberOnSteck(){
+    private Object[] create(){
         StringBuilder sb = new StringBuilder();
         Printer printer = new TestPrinter(sb);
         Context ctx = new Context(printer);
+        Parser parser = new Parser(ctx);
         Interpreter interpreter = new Interpreter(ctx);
+        return new Object[] {interpreter, parser, sb};
+    }
+
+    @Test
+    public void namberOnSteck(){
+        Object[] date = create();
         String[] words = "1 .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" 1\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" 1\n", date[2].toString());
     }
 
     @Test
     public void unknowCommand(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = "1 . print".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" Error: unknow command (print)\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Error: unknow command (print)\n", date[2].toString());
     }
 
     @Test
     public void popFromEmptyStack(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = ". . . .".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" Error: pop from empty stack\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 
     @Test
     public void printLines(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = ".\" Hello, world!\"".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" Hello, world!\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Hello, world!\n", date[2].toString());
     }
 
     @Test
     public void uncorrectPrintLines(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = ".\" No error".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" Error: Absent \"\n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" Error: Absent \"\n", date[2].toString());
     }
 
     @Test
     public void printEmpty(){
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Interpreter interpreter = new Interpreter(ctx);
+        Object[] date = create();
         String[] words = ".\" \"".split(" ");
-        interpreter.interpret(words);
-        TestCase.assertEquals(" \n", sb.toString());
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        TestCase.assertEquals(" \n", date[2].toString());
     }
 }
 
