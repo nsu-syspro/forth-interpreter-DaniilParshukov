@@ -5,11 +5,12 @@ import ru.nsu.mmf.syspro.forth.Commands.Command;
 
 public class Drop implements Command {
     @Override
-    public void apply(Context ctx){
+    public boolean apply(Context ctx){
         if (ctx.S.empty()){
             ctx.printer.print(" Error: pop from empty stack");
-            ctx.error = true;
+            return true;
         }
         ctx.S.pop();
+        return false;
     }
 }

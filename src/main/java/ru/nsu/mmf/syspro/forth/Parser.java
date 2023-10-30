@@ -50,7 +50,7 @@ public class Parser {
                 }
             }
             Command cmd = getCmd(words);
-            if(cmd == null){
+            if (cmd == null){
                 return null;
             }else{
                 commands.add(cmd);

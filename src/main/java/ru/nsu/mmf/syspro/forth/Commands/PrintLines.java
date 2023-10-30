@@ -8,12 +8,13 @@ public class PrintLines implements Command {
     List<String> str;
 
     @Override
-    public void apply(Context ctx){
+    public boolean apply(Context ctx){
         for(String s:str){
             ctx.printer.print(" ");
             ctx.printer.print(s);
         }
         ctx.ok = false;
+        return false;
     }
 
     public PrintLines(List<String> str){

@@ -5,8 +5,9 @@ import ru.nsu.mmf.syspro.forth.Commands.Command;
 
 public class Cr implements Command {
     @Override
-    public void apply(Context ctx){
+    public boolean apply(Context ctx){
         ctx.printer.print("\n");
         ctx.ok = false;
+        return false;
     }
 }

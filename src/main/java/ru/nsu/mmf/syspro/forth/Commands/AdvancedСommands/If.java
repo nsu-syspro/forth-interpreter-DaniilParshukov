@@ -8,20 +8,21 @@ import ru.nsu.mmf.syspro.forth.Commands.Command;
 public class If implements Command {
     List<Command> commands;
     @Override
-    public void apply(Context ctx){
+    public boolean apply(Context ctx){
         if (ctx.S.size() < 1){
             System.out.print(" Error: pop from empty stack");
-            ctx.error = true;
-            return;
+            return true;
         }
         if (ctx.S.pop() != 0){
+            boolean error = false;
             for(Command cmd:commands){
-                cmd.apply(ctx);
-                if (ctx.error){
-                    break;
+                error = cmd.apply(ctx);
+                if (error){
+                    break;      //to do
                 }
             }
         }
+        return false;
     }
 
     public If(List<Command> commands){

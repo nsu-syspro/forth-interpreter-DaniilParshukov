@@ -5,7 +5,6 @@ import java.util.Stack;
 public class Context {
     public final Printer printer;
     public final Stack<Integer> S;
-    public boolean error;
     public boolean ok;
     public boolean exit;
 

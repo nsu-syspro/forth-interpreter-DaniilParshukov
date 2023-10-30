@@ -13,18 +13,18 @@ public class Interpreter {
 
     public void interpret(List<Command> commands){
         ctx.ok = true;
-        ctx.error = false;
-        if(commands == null){
+        boolean error = false;
+        if (commands == null){
             ctx.printer.print("\n");
             return;
         }
         for(int i = 0; i < commands.size(); i++){
-            commands.get(i).apply(ctx);
-            if(ctx.error){
+            error = commands.get(i).apply(ctx);
+            if (error){
                 break;
             }
         }
-        if(ctx.ok & !ctx.error){
+        if(ctx.ok & !error){
             ctx.printer.print(" ok\n");
         }else{
             ctx.printer.print("\n");

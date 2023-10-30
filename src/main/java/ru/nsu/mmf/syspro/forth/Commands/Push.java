@@ -5,8 +5,9 @@ import ru.nsu.mmf.syspro.forth.Context;
 public class Push implements Command {
     int num;
     @Override
-    public void apply(Context ctx){
+    public boolean apply(Context ctx){
         ctx.S.push(num);
+        return false;
     }
 
     public Push(int num){

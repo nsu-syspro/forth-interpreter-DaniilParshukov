@@ -5,21 +5,20 @@ import ru.nsu.mmf.syspro.forth.Commands.Command;
 
 public class Emit implements Command {
     @Override
-    public void apply(Context ctx){
+    public boolean apply(Context ctx){
         if (ctx.S.empty()){
             ctx.printer.print(" Error: pop from empty stack");
-            ctx.error = true;
-            return;
+            return true;
         }
         int n = ctx.S.pop();
         if (n < 32 | n > 126){
             ctx.printer.print(" Error: no ascii symbol");
             ctx.S.push(n);
-            ctx.error = true;
-            return;
+            return true;
         }
         char c = (char) n;
         ctx.printer.print(" " + c);
         ctx.ok = false;
+        return false;
     }
 }
