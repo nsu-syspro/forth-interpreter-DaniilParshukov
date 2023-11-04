@@ -5,8 +5,8 @@ import ru.nsu.mmf.syspro.forth.Commands.Command;
 
 public class Print implements Command {
     @Override
-    public boolean apply(Context ctx){
-        if (ctx.S.empty()){
+    public boolean apply(Context ctx) {
+        if (ctx.S.empty()) {
             ctx.printer.print(" Error: pop from empty stack");
             return true;
         }

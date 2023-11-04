@@ -52,7 +52,7 @@ public class IntegrationTests {
                 Expected format:
                 in:
                 <input_data>
-                       
+
                 out:
                 <output_data>
                 """.formatted(testName, msg);
@@ -66,7 +66,7 @@ public class IntegrationTests {
                 System.setIn(new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8)));
                 ByteArrayOutputStream newOutStream = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(newOutStream));
-                Main.main(new String[]{});
+                Main.main(new String[] {});
                 return newOutStream.toString(StandardCharsets.UTF_8);
             } finally {
                 System.setIn(oldIn);

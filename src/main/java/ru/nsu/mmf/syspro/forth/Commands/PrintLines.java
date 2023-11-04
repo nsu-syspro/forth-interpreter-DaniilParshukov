@@ -5,11 +5,11 @@ import java.util.List;
 import ru.nsu.mmf.syspro.forth.Context;
 
 public class PrintLines implements Command {
-    private List<String> str;
+    private final List<String> str;
 
     @Override
-    public boolean apply(Context ctx){
-        for(String s:str){
+    public boolean apply(Context ctx) {
+        for (String s : str) {
             ctx.printer.print(" ");
             ctx.printer.print(s);
         }
@@ -17,7 +17,7 @@ public class PrintLines implements Command {
         return false;
     }
 
-    public PrintLines(List<String> str){
+    public PrintLines(List<String> str) {
         this.str = str;
     }
 }

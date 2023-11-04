@@ -9,9 +9,9 @@ public class Main {
         Context ctx = new Context(printer);
         Interpreter itr = new Interpreter(ctx);
         Parser parser = new Parser(ctx);
-        while(!ctx.exit){
+        while (!ctx.exit) {
             String line = in.nextLine();
-            if (line.equals("")){
+            if (line.equals("")) {
                 continue;
             }
             String[] words = line.split(" ");
@@ -20,9 +20,9 @@ public class Main {
         in.close();
     }
 
-    private static class ConsolePrinter implements Printer{
+    private static class ConsolePrinter implements Printer {
         @Override
-        public void print(String line){
+        public void print(String line) {
             System.out.print(line);
         }
     }

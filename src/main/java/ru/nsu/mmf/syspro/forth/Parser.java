@@ -29,47 +29,46 @@ public class Parser {
     private Context ctx;
     private int pos;
 
-    public Parser(Context ctx){
+    public Parser(Context ctx) {
         this.ctx = ctx;
     }
 
-    public List<Command> parse(String[] words){
+    public List<Command> parse(String[] words) {
         pos = 0;
         return getCommands(words, null, null);
     }
 
-    private List<Command> getCommands(String[] words, String stopAt1, String stopAt2){
+    private List<Command> getCommands(String[] words, String stopAt1, String stopAt2) {
         List<Command> commands = new ArrayList<>();
-        for(; pos < words.length; pos++){
-            if(words[pos].equals(stopAt1)){
-                if(pos + 1 < words.length){
-                    if(words[pos + 1].equals(stopAt2)){
+        for (; pos < words.length; pos++) {
+            if (words[pos].equals(stopAt1)) {
+                if (pos + 1 < words.length) {
+                    if (words[pos + 1].equals(stopAt2)) {
                         pos++;
                         return commands;
                     }
                 }
             }
             Command cmd = getCmd(words);
-            if (cmd == null){
+            if (cmd == null) {
                 return null;
-            }else{
+            } else {
                 commands.add(cmd);
             }
         }
-        if (stopAt1 != null){
+        if (stopAt1 != null) {
             ctx.printer.print(" Error: miss stopAt: " + stopAt1.toString() + " " + stopAt2.toString());
             return null;
         }
         return commands;
     }
 
-
-    private Command getCmd(String[] words){
+    private Command getCmd(String[] words) {
         try {
             int num = Integer.parseInt(words[pos]);
             return new Push(num);
-        }catch (NumberFormatException e){
-            return switch(words[pos]){
+        } catch (NumberFormatException e) {
+            return switch (words[pos]) {
                 case "+" -> new Plus();
                 case "-" -> new Minus();
                 case "*" -> new Multiply();
@@ -89,7 +88,7 @@ public class Parser {
                 case "=" -> new Equals();
                 case ".\"" -> {
                     List<String> str = getLinesToPrint(words);
-                    if(str == null){
+                    if (str == null) {
                         yield null;
                     }
                     yield new PrintLines(str);
@@ -97,7 +96,7 @@ public class Parser {
                 case "if" -> {
                     pos++;
                     List<Command> commands = getCommands(words, "then", ";");
-                    if(commands == null){
+                    if (commands == null) {
                         yield null;
                     }
                     yield new If(commands);
@@ -110,13 +109,13 @@ public class Parser {
         }
     }
 
-    private List<String> getLinesToPrint(String[] words){
+    private List<String> getLinesToPrint(String[] words) {
         List<String> str = new ArrayList<>();
-        while(++pos < words.length){
-            if (words[pos].charAt(words[pos].length() - 1) == '\"'){
+        while (++pos < words.length) {
+            if (words[pos].charAt(words[pos].length() - 1) == '\"') {
                 str.add(words[pos].substring(0, words[pos].length() - 1));
                 return str;
-            }else{
+            } else {
                 str.add(words[pos]);
             }
             ctx.ok = false;

@@ -8,8 +8,7 @@ public class Context {
     public boolean ok;
     public boolean exit;
 
-
-    public Context(Printer printer){
+    public Context(Printer printer) {
         this.printer = printer;
         this.S = new Stack<Integer>();
         this.exit = false;

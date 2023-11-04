@@ -5,7 +5,7 @@ import org.junit.Test;
 import junit.framework.TestCase;
 
 public class CommandsTests {
-    
+
     private static class TestPrinter implements Printer {
         StringBuilder sb;
 
@@ -27,8 +27,6 @@ public class CommandsTests {
         Interpreter interpreter = new Interpreter(ctx);
         return new Object[] { interpreter, parser, sb };
     }
-
-    
 
     @Test
     public void namberOnSteck() {

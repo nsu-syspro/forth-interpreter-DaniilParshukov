@@ -32,7 +32,7 @@ public class InterpreterTests {
         Printer printer = new TestPrinter(sb);
         Context ctx = new Context(printer);
         Interpreter interpreter = new Interpreter(ctx);
-        return new Object[] { interpreter, sb, };
+        return new Object[] { interpreter, sb };
     }
 
     @Test

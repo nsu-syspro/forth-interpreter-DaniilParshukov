@@ -6,18 +6,19 @@ import ru.nsu.mmf.syspro.forth.Context;
 import ru.nsu.mmf.syspro.forth.Commands.Command;
 
 public class If implements Command {
-    List<Command> commands;
+    private final List<Command> commands;
+
     @Override
-    public boolean apply(Context ctx){
-        if (ctx.S.size() < 1){
+    public boolean apply(Context ctx) {
+        if (ctx.S.size() < 1) {
             System.out.print(" Error: pop from empty stack");
             return true;
         }
-        if (ctx.S.pop() != 0){
+        if (ctx.S.pop() != 0) {
             boolean error = false;
-            for(Command cmd:commands){
+            for (Command cmd : commands) {
                 error = cmd.apply(ctx);
-                if (error){
+                if (error) {
                     return true;
                 }
             }
@@ -25,7 +26,7 @@ public class If implements Command {
         return false;
     }
 
-    public If(List<Command> commands){
+    public If(List<Command> commands) {
         this.commands = commands;
     }
 }
