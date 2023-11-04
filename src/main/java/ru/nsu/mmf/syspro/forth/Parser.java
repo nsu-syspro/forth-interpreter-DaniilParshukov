@@ -118,7 +118,7 @@ public class Parser {
             } else {
                 str.add(words[pos]);
             }
-            ctx.ok = false;
+            ctx.status = STATUS.DEFAULT;
         }
         ctx.printer.print(" Error: Absent \"");
         return null;

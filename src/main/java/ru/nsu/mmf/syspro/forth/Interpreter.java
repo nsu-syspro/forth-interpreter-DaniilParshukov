@@ -12,18 +12,20 @@ public class Interpreter {
     }
 
     public void interpret(List<Command> commands) {
-        ctx.ok = true;
+        ctx.status = STATUS.OK;
         if (commands == null) {
             ctx.printer.print("\n");
             return;
         }
         for (Command command : commands) {
             if (command.apply(ctx)) {
-                ctx.ok = false;
+                if (ctx.status == STATUS.OK) {
+                    ctx.status = STATUS.DEFAULT;
+                }
                 break;
             }
         }
-        if (ctx.ok) {
+        if (ctx.status == STATUS.OK) {
             ctx.printer.print(" ok\n");
         } else {
             ctx.printer.print("\n");

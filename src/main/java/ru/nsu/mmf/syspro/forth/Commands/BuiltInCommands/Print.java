@@ -1,6 +1,7 @@
 package ru.nsu.mmf.syspro.forth.Commands.BuiltInCommands;
 
 import ru.nsu.mmf.syspro.forth.Context;
+import ru.nsu.mmf.syspro.forth.STATUS;
 import ru.nsu.mmf.syspro.forth.Commands.Command;
 
 public class Print implements Command {
@@ -11,7 +12,7 @@ public class Print implements Command {
             return true;
         }
         ctx.printer.print(" " + ctx.S.pop().toString());
-        ctx.ok = false;
+        ctx.status = STATUS.DEFAULT;
         return false;
     }
 }

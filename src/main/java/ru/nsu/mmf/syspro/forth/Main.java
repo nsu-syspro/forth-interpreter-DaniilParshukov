@@ -9,7 +9,7 @@ public class Main {
         Context ctx = new Context(printer);
         Interpreter itr = new Interpreter(ctx);
         Parser parser = new Parser(ctx);
-        while (!ctx.exit) {
+        while (!(ctx.status == STATUS.EXIT)) {
             String line = in.nextLine();
             if (line.equals("")) {
                 continue;

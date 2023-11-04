@@ -3,6 +3,7 @@ package ru.nsu.mmf.syspro.forth.Commands;
 import java.util.List;
 
 import ru.nsu.mmf.syspro.forth.Context;
+import ru.nsu.mmf.syspro.forth.STATUS;
 
 public class PrintLines implements Command {
     private final List<String> str;
@@ -13,7 +14,7 @@ public class PrintLines implements Command {
             ctx.printer.print(" ");
             ctx.printer.print(s);
         }
-        ctx.ok = false;
+        ctx.status = STATUS.DEFAULT;
         return false;
     }
 
