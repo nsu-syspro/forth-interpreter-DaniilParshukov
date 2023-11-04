@@ -33,7 +33,7 @@ public class Parser {
         this.ctx = ctx;
     }
 
-    public List<Command> pars(String[] words){
+    public List<Command> parse(String[] words){
         pos = 0;
         return getCommands(words, null, null);
     }

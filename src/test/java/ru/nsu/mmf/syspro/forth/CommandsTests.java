@@ -34,7 +34,7 @@ public class CommandsTests {
     public void namberOnSteck() {
         Object[] date = create();
         String[] words = "1 .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).pars(words));
+        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
         TestCase.assertEquals(" 1\n", date[2].toString());
     }
 
@@ -42,7 +42,7 @@ public class CommandsTests {
     public void unknowCommand() {
         Object[] date = create();
         String[] words = "1 . print".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).pars(words));
+        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
         TestCase.assertEquals(" Error: unknow command (print)\n", date[2].toString());
     }
 
@@ -50,7 +50,7 @@ public class CommandsTests {
     public void printLines() {
         Object[] date = create();
         String[] words = ".\" Hello, world!\"".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).pars(words));
+        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
         TestCase.assertEquals(" Hello, world!\n", date[2].toString());
     }
 
@@ -58,7 +58,7 @@ public class CommandsTests {
     public void uncorrectPrintLines() {
         Object[] date = create();
         String[] words = ".\" No error".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).pars(words));
+        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
         TestCase.assertEquals(" Error: Absent \"\n", date[2].toString());
     }
 
@@ -66,7 +66,7 @@ public class CommandsTests {
     public void printEmpty() {
         Object[] date = create();
         String[] words = ".\" \"".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).pars(words));
+        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
         TestCase.assertEquals(" \n", date[2].toString());
     }
 
@@ -74,7 +74,7 @@ public class CommandsTests {
     public void commands1() {
         Object[] date = create();
         String[] words = ".\" (-20+12)/(2*6-10) =\" -20 12 + dup . .\" /\" 2 6 * 10 - dup . .\" =\" / .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).pars(words));
+        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
         TestCase.assertEquals(" (-20+12)/(2*6-10) = -8 / 2 = -4\n", date[2].toString());
     }
 
@@ -82,7 +82,7 @@ public class CommandsTests {
     public void commands2() {
         Object[] date = create();
         String[] words = ".\" max(3*7, 11*2) =\" 3 7 * dup 11 2 * dup rot > if drop then ; .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).pars(words));
+        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
         TestCase.assertEquals(" max(3*7, 11*2) = 22\n", date[2].toString());
     }
 }

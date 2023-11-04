@@ -15,7 +15,7 @@ public class Main {
                 continue;
             }
             String[] words = line.split(" ");
-            itr.interpret(parser.pars(words));
+            itr.interpret(parser.parse(words));
         }
         in.close();
     }

@@ -30,7 +30,7 @@ public class BuiltlnTests {
     public void cr(){
         Object[] date = create();
         String[] words = "cr".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals("\n\n", date[2].toString());
     }
 
@@ -38,7 +38,7 @@ public class BuiltlnTests {
     public void drop(){
         Object[] date = create();
         String[] words = "1 2 drop .".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" 1\n", date[2].toString());
     }
 
@@ -46,7 +46,7 @@ public class BuiltlnTests {
     public void drop2(){
         Object[] date = create();
         String[] words = "drop".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 
@@ -54,7 +54,7 @@ public class BuiltlnTests {
     public void dup(){
         Object[] date = create();
         String[] words = "1 dup . .".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" 1 1\n", date[2].toString());
     }
 
@@ -62,7 +62,7 @@ public class BuiltlnTests {
     public void dup2(){
         Object[] date = create();
         String[] words = "dup".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 
@@ -70,7 +70,7 @@ public class BuiltlnTests {
     public void emit(){
         Object[] date = create();
         String[] words = "65 emit".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" A\n", date[2].toString());
     }
 
@@ -78,7 +78,7 @@ public class BuiltlnTests {
     public void emit2(){
         Object[] date = create();
         String[] words = "-3 emit".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" Error: no ascii symbol\n", date[2].toString());
     }
 
@@ -86,7 +86,7 @@ public class BuiltlnTests {
     public void emit3(){
         Object[] date = create();
         String[] words = "1000 emit".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" Error: no ascii symbol\n", date[2].toString());
     }
 
@@ -94,7 +94,7 @@ public class BuiltlnTests {
     public void emit4(){
         Object[] date = create();
         String[] words = "emit".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 
@@ -102,7 +102,7 @@ public class BuiltlnTests {
     public void over(){
         Object[] date = create();
         String[] words = "1 2 over . .".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" 1 2\n", date[2].toString());
     }
 
@@ -110,7 +110,7 @@ public class BuiltlnTests {
     public void over2(){
         Object[] date = create();
         String[] words = "1 over . .".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 
@@ -118,7 +118,7 @@ public class BuiltlnTests {
     public void print(){
         Object[] date = create();
         String[] words = "1 0 -0 -1 65 . . . . .".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" 65 -1 0 0 1\n", date[2].toString());
     }
 
@@ -126,7 +126,7 @@ public class BuiltlnTests {
     public void print2(){
         Object[] date = create();
         String[] words = ". . . . .".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 
@@ -134,7 +134,7 @@ public class BuiltlnTests {
     public void rot(){
         Object[] date = create();
         String[] words = "1 2 3 rot . . .".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" 2 1 3\n", date[2].toString());
     }
 
@@ -142,7 +142,7 @@ public class BuiltlnTests {
     public void rot2(){
         Object[] date = create();
         String[] words = "1 2 rot ".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 
@@ -150,7 +150,7 @@ public class BuiltlnTests {
     public void swap(){
         Object[] date = create();
         String[] words = "1 2 swap . .".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" 1 2\n", date[2].toString());
     }
 
@@ -158,7 +158,7 @@ public class BuiltlnTests {
     public void swap2(){
         Object[] date = create();
         String[] words = "1 swap".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 }

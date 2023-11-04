@@ -30,7 +30,7 @@ public class AdvancedTests {
     public void if1(){
         Object[] date = create();
         String[] words = "1 if 1 . then ; 2 .".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" 1 2\n", date[2].toString());
     }
 
@@ -38,7 +38,7 @@ public class AdvancedTests {
     public void if2(){
         Object[] date = create();
         String[] words = "1 2 = if .\" 1=2\" then ;".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" ok\n", date[2].toString());
     }
 
@@ -46,7 +46,7 @@ public class AdvancedTests {
     public void if3(){
         Object[] date = create();
         String[] words = "8 4 2 0 dup 0 = if drop then ; / .".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" 2\n", date[2].toString());
     }
 
@@ -54,7 +54,7 @@ public class AdvancedTests {
     public void if4(){
         Object[] date = create();
         String[] words = "1 if then ;".split(" ");
-        ((Interpreter)date[0]).interpret(((Parser)date[1]).pars(words));
+        ((Interpreter)date[0]).interpret(((Parser)date[1]).parse(words));
         TestCase.assertEquals(" ok\n", date[2].toString());
     }
 }
