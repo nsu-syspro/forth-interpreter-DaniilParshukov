@@ -17,17 +17,13 @@ public class Interpreter {
             ctx.printer.print("\n");
             return;
         }
-        try {
-            for (Command command : commands) {
-                command.apply(ctx);
-            }
-            if (ctx.status == STATUS.OK) {
-                ctx.printer.print(" ok\n");
-            } else {
-                ctx.printer.print("\n");
-            }  
-        } catch (Exception e) {
-            ctx.printer.print(e + "\n");
+        for (Command command : commands) {
+            command.apply(ctx);
+        }
+        if (ctx.status == STATUS.OK) {
+            ctx.printer.print(" ok\n");
+        } else {
+            ctx.printer.print("\n");
         }
     }
 }

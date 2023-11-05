@@ -15,7 +15,11 @@ public class Main {
                 continue;
             }
             String[] words = line.split(" ");
-            itr.interpret(parser.parse(words));
+            try {
+                itr.interpret(parser.parse(words));
+            } catch (Exception e) {
+                ctx.printer.print(e + "\n");
+            }
         }
         in.close();
     }

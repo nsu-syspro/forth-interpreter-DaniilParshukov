@@ -1,8 +1,19 @@
 package ru.nsu.mmf.syspro.forth;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 import org.junit.Test;
 
 import junit.framework.TestCase;
+import ru.nsu.mmf.syspro.forth.Commands.Command;
+import ru.nsu.mmf.syspro.forth.Commands.Push;
+import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Divide;
+import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Minus;
+import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Modulo;
+import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Multiply;
+import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Plus;
 
 public class ArithmeticTests {
     private static class TestPrinter implements Printer {
@@ -18,108 +29,137 @@ public class ArithmeticTests {
         }
     }
 
-    private Object[] create() {
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Parser parser = new Parser(ctx);
+    private Stack<Integer> stackAfterInterpret(Command[] cmds) {
+        Context ctx = new Context(new TestPrinter(new StringBuilder()));
         Interpreter interpreter = new Interpreter(ctx);
-        return new Object[] { interpreter, parser, sb };
+        List<Command> list = new ArrayList<>();
+        for (Command cmd : cmds) {
+            list.add(cmd);
+        }
+        interpreter.interpret(list);
+        return ctx.S;
     }
 
     @Test
-    public void Plus() {
-        Object[] date = create();
-        String[] words = "1 2 + .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" 3\n", date[2].toString());
+    public void plus1() {
+        Command[] cmds = { new Push(1), new Push(2), new Plus() };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 1);
+        TestCase.assertEquals((int) s.pop(), 3);
     }
 
     @Test
-    public void Plus2() {
-        Object[] date = create();
-        String[] words = "12 + .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
+    public void plus2() {
+        try {
+            Command[] cmds = { new Push(1), new Plus() };
+            stackAfterInterpret(cmds);
+            TestCase.fail();
+        } catch (Exception e) {
+            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
+        }
     }
 
     @Test
-    public void Divide() {
-        Object[] date = create();
-        String[] words = "4 2 / .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" 2\n", date[2].toString());
+    public void divide() {
+        Command[] cmds = { new Push(8), new Push(2), new Divide() };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 1);
+        TestCase.assertEquals((int) s.pop(), 4);
     }
 
     @Test
-    public void DivideZero() {
-        Object[] date = create();
-        String[] words = "4 0 / .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" Error: division by zero\n", date[2].toString());
+    public void divideZero() {
+        try {
+            Command[] cmds = { new Push(8), new Push(0), new Divide() };
+            stackAfterInterpret(cmds);
+            TestCase.fail();
+        } catch (Exception e) {
+            System.out.print(e);
+            TestCase.assertEquals(e.toString(), "java.lang.ArithmeticException: / by zero");
+        }
     }
 
     @Test
-    public void Divide2() {
-        Object[] date = create();
-        String[] words = "8 3 / .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" 2\n", date[2].toString());
+    public void divide2() {
+        Command[] cmds = { new Push(8), new Push(3), new Divide() };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 1);
+        TestCase.assertEquals((int) s.pop(), 2);
     }
 
     @Test
-    public void Divide3() {
-        Object[] date = create();
-        String[] words = "0 142 / .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" 0\n", date[2].toString());
+    public void divide3() {
+        Command[] cmds = { new Push(0), new Push(142), new Divide() };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 1);
+        TestCase.assertEquals((int) s.pop(), 0);
     }
 
     @Test
-    public void Minus() {
-        Object[] date = create();
-        String[] words = "3 5 - .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" -2\n", date[2].toString());
+    public void minus1() {
+        Command[] cmds = { new Push(3), new Push(5), new Minus() };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 1);
+        TestCase.assertEquals((int) s.pop(), -2);
     }
 
     @Test
-    public void Minus2() {
-        Object[] date = create();
-        String[] words = "3 - . 1 2 -".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
+    public void minus2() {
+        try {
+            Command[] cmds = { new Push(1), new Divide() };
+            stackAfterInterpret(cmds);
+            TestCase.fail();
+        } catch (Exception e) {
+            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
+        }
     }
 
     @Test
-    public void Modulo() {
-        Object[] date = create();
-        String[] words = "8 3 mod .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" 2\n", date[2].toString());
+    public void modulo1() {
+        Command[] cmds = { new Push(8), new Push(3), new Modulo() };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 1);
+        TestCase.assertEquals((int) s.pop(), 2);
     }
 
     @Test
-    public void ModuloZero() {
-        Object[] date = create();
-        String[] words = "8 0 mod .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" Error: division by zero\n", date[2].toString());
+    public void moduloZero() {
+        try {
+            Command[] cmds = { new Push(1), new Push(0), new Divide() };
+            stackAfterInterpret(cmds);
+            TestCase.fail();
+        } catch (Exception e) {
+            TestCase.assertEquals(e.toString(), "java.lang.ArithmeticException: / by zero");
+        }
     }
 
     @Test
-    public void Modulo2() {
-        Object[] date = create();
-        String[] words = "1 mod .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
+    public void modulo2() {
+        try {
+            Command[] cmds = { new Push(1), new Plus() };
+            stackAfterInterpret(cmds);
+            TestCase.fail();
+        } catch (Exception e) {
+            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
+        }
     }
 
     @Test
-    public void Multiply() {
-        Object[] date = create();
-        String[] words = "8 3 * .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" 24\n", date[2].toString());
+    public void multiply1() {
+        Command[] cmds = { new Push(8), new Push(3), new Multiply() };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 1);
+        TestCase.assertEquals((int) s.pop(), 24);
+    }
+
+    @Test
+    public void multiply2() {
+        try {
+            Command[] cmds = { new Push(1), new Multiply() };
+            stackAfterInterpret(cmds);
+            TestCase.fail();
+        } catch (Exception e) {
+            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
+        }
     }
 }

@@ -31,31 +31,31 @@ public class ParserTests {
     }
 
     @Test
-    public void ParserError1() {
+    public void parseError1() {
         Object[] date = create();
         String[] words = "if 1 2 + . 1 0 /".split(" ");
         ((Parser) date[0]).parse(words);
-        TestCase.assertEquals(" Error: miss stopAt: then ;", date[1].toString());
+        TestCase.assertEquals(" Parse Error: miss stopAt: then ;", date[1].toString());
     }
 
     @Test
-    public void ParserError2() {
+    public void parseError2() {
         Object[] date = create();
         String[] words = "1 2 max".split(" ");
         ((Parser) date[0]).parse(words);
-        TestCase.assertEquals(" Error: unknow command (max)", date[1].toString());
+        TestCase.assertEquals(" Parse Error: unknow command (max)", date[1].toString());
     }
 
     @Test
-    public void ParserError3() {
+    public void parseError3() {
         Object[] date = create();
         String[] words = ".\" string with no end".split(" ");
         ((Parser) date[0]).parse(words);
-        TestCase.assertEquals(" Error: Absent \"", date[1].toString());
+        TestCase.assertEquals(" Parse Error: Absent \"", date[1].toString());
     }
 
     @Test
-    public void Parser1() {
+    public void parser1() {
         Object[] date = create();
         String[] words = "+ - * /".split(" ");
         List<Command> commands = ((Parser) date[0]).parse(words);
@@ -67,7 +67,7 @@ public class ParserTests {
     }
 
     @Test
-    public void Parser2() {
+    public void parser2() {
         Object[] date = create();
         String[] words = "cr drop dup emit exit over . rot swap".split(" ");
         List<Command> commands = ((Parser) date[0]).parse(words);
@@ -79,7 +79,7 @@ public class ParserTests {
     }
 
     @Test
-    public void Parser3() {
+    public void parser3() {
         Object[] date = create();
         String[] words = "< = >".split(" ");
         List<Command> commands = ((Parser) date[0]).parse(words);

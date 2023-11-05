@@ -35,7 +35,8 @@ public class IntegrationTests {
         }
     }
 
-    private static void testOne(@NotNull TestRunner testRunner, @NotNull ErrorCollector errorCollector, @NotNull Path testFile) {
+    private static void testOne(@NotNull TestRunner testRunner, @NotNull ErrorCollector errorCollector,
+            @NotNull Path testFile) {
         try {
             TestCase testCase = TestCase.create(testFile);
             testCase.check(testRunner);

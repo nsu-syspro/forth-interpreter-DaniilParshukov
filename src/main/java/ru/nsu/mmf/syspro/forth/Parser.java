@@ -57,7 +57,7 @@ public class Parser {
             }
         }
         if (stopAt1 != null) {
-            ctx.printer.print(" Error: miss stopAt: " + stopAt1.toString() + " " + stopAt2.toString());
+            ctx.printer.print(" Parse Error: miss stopAt: " + stopAt1.toString() + " " + stopAt2.toString());
             return null;
         }
         return commands;
@@ -102,7 +102,7 @@ public class Parser {
                     yield new If(commands);
                 }
                 default -> {
-                    ctx.printer.print(" Error: unknow command (" + words[pos] + ")");
+                    ctx.printer.print(" Parse Error: unknow command (" + words[pos] + ")");
                     yield null;
                 }
             };
@@ -120,7 +120,7 @@ public class Parser {
             }
             ctx.status = STATUS.DEFAULT;
         }
-        ctx.printer.print(" Error: Absent \"");
+        ctx.printer.print(" Parse Error: Absent \"");
         return null;
     }
 }
