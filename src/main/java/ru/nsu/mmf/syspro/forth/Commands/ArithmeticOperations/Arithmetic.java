@@ -5,10 +5,6 @@ import ru.nsu.mmf.syspro.forth.Commands.Command;
 
 public class Arithmetic implements Command {
     public boolean apply(Context ctx) {
-        if (ctx.S.size() < 2) {
-            ctx.printer.print(" Error: pop from empty stack");
-            return true;
-        }
         int b = ctx.S.pop();
         int a = ctx.S.pop();
         return сalculate(ctx, a, b);

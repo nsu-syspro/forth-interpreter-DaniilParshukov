@@ -10,10 +10,6 @@ public class If implements Command {
 
     @Override
     public boolean apply(Context ctx) {
-        if (ctx.S.size() < 1) {
-            System.out.print(" Error: pop from empty stack");
-            return true;
-        }
         if (ctx.S.pop() != 0) {
             boolean error = false;
             for (Command cmd : commands) {

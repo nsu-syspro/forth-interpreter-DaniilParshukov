@@ -58,4 +58,12 @@ public class AdvancedTests {
         ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
         TestCase.assertEquals(" ok\n", date[2].toString());
     }
+
+    @Test
+    public void if5() {
+        Object[] date = create();
+        String[] words = "if then ;".split(" ");
+        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
+        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
+    }
 }
