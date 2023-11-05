@@ -6,9 +6,8 @@ public class Push implements Command {
     private final int num;
 
     @Override
-    public boolean apply(Context ctx) {
+    public void apply(Context ctx) {
         ctx.S.push(num);
-        return false;
     }
 
     public Push(int num) {

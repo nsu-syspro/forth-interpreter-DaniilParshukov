@@ -1,6 +1,5 @@
 package ru.nsu.mmf.syspro.forth;
 
-import java.util.EmptyStackException;
 import java.util.List;
 
 import ru.nsu.mmf.syspro.forth.Commands.Command;
@@ -20,20 +19,15 @@ public class Interpreter {
         }
         try {
             for (Command command : commands) {
-                if (command.apply(ctx)) {
-                    if (ctx.status == STATUS.OK) {
-                        ctx.status = STATUS.DEFAULT;
-                    }
-                    break;
-                }
+                command.apply(ctx);
             }
             if (ctx.status == STATUS.OK) {
                 ctx.printer.print(" ok\n");
             } else {
                 ctx.printer.print("\n");
             }  
-        } catch (EmptyStackException e) {
-            ctx.printer.print(" Error: pop from empty stack\n");
+        } catch (Exception e) {
+            ctx.printer.print(e + "\n");
         }
     }
 }

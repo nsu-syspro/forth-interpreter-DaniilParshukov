@@ -4,13 +4,14 @@ import ru.nsu.mmf.syspro.forth.Context;
 import ru.nsu.mmf.syspro.forth.Commands.Command;
 
 public class Arithmetic implements Command {
-    public boolean apply(Context ctx) {
+    @Override
+    public void apply(Context ctx) {
         int b = ctx.S.pop();
         int a = ctx.S.pop();
-        return сalculate(ctx, a, b);
+        ctx.S.push(сalculate(a, b));
     }
 
-    public boolean сalculate(Context ctx, int a, int b){
-        return false;
+    public int сalculate(int a, int b){
+        return 0;
     }
 }

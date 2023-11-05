@@ -5,8 +5,7 @@ import ru.nsu.mmf.syspro.forth.Commands.Command;
 
 public class Drop implements Command {
     @Override
-    public boolean apply(Context ctx) {
+    public void apply(Context ctx) {
         ctx.S.pop();
-        return false;
     }
 }

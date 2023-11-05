@@ -6,9 +6,8 @@ import ru.nsu.mmf.syspro.forth.Commands.Command;
 
 public class Print implements Command {
     @Override
-    public boolean apply(Context ctx) {
+    public void apply(Context ctx) {
         ctx.printer.print(" " + ctx.S.pop().toString());
         ctx.status = STATUS.DEFAULT;
-        return false;
     }
 }

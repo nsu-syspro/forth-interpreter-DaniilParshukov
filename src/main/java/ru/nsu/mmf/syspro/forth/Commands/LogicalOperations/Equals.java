@@ -5,7 +5,7 @@ import ru.nsu.mmf.syspro.forth.Commands.Command;
 
 public class Equals implements Command {
     @Override
-    public boolean apply(Context ctx) {
+    public void apply(Context ctx) {
         int b = ctx.S.pop();
         int a = ctx.S.pop();
         if (a == b) {
@@ -13,6 +13,5 @@ public class Equals implements Command {
         } else {
             ctx.S.push(0);
         }
-        return false;
     }
 }

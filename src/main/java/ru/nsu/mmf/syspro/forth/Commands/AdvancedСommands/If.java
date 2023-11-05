@@ -9,17 +9,12 @@ public class If implements Command {
     private final List<Command> commands;
 
     @Override
-    public boolean apply(Context ctx) {
+    public void apply(Context ctx) {
         if (ctx.S.pop() != 0) {
-            boolean error = false;
             for (Command cmd : commands) {
-                error = cmd.apply(ctx);
-                if (error) {
-                    return true;
-                }
+                cmd.apply(ctx);
             }
         }
-        return false;
     }
 
     public If(List<Command> commands) {
