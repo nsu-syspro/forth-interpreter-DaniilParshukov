@@ -37,7 +37,7 @@ public class CommandsTests {
     }
 
     @Test
-    public void namberOnSteck() {
+    public void numberOnStack() {
         Command[] cmds = { new Push(8) };
         Stack<Integer> s = stackAfterInterpret(cmds);
         TestCase.assertEquals(s.size(), 1);

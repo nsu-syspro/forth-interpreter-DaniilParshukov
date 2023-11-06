@@ -1,6 +1,7 @@
 package ru.nsu.mmf.syspro.forth;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
 
 import org.junit.Test;
@@ -53,37 +54,22 @@ public class PrintTests {
         TestCase.assertEquals(" A\n", sb.toString());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void emit2() {
-        try {
-            Command[] cmds = { new Push(-3), new Emit() };
-            stringBuilderInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.lang.IllegalArgumentException: no ascii symbol");
-        }
+        Command[] cmds = { new Push(-3), new Emit() };
+        stringBuilderInterpret(cmds);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void emit3() {
-        try {
-            Command[] cmds = { new Push(1000), new Emit() };
-            stringBuilderInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.lang.IllegalArgumentException: no ascii symbol");
-        }
+        Command[] cmds = { new Push(1000), new Emit() };
+        stringBuilderInterpret(cmds);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void emit4() {
-        try {
-            Command[] cmds = { new Emit() };
-            stringBuilderInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Emit() };
+        stringBuilderInterpret(cmds);
     }
 
     @Test
@@ -93,15 +79,10 @@ public class PrintTests {
         TestCase.assertEquals(" 65\n", sb.toString());
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void print2() {
-        try {
-            Command[] cmds = { new Print() };
-            stringBuilderInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Print() };
+        stringBuilderInterpret(cmds);
     }
 
     @Test

@@ -1,6 +1,7 @@
 package ru.nsu.mmf.syspro.forth;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
 
@@ -48,15 +49,10 @@ public class BuiltlnTests {
         TestCase.assertEquals(s.size(), 0);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void drop2() {
-        try {
-            Command[] cmds = { new Drop() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Drop() };
+        stackAfterInterpret(cmds);
     }
 
     @Test
@@ -68,15 +64,10 @@ public class BuiltlnTests {
         TestCase.assertEquals((int) s.pop(), 1);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void dup2() {
-        try {
-            Command[] cmds = { new Dup() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Dup() };
+        stackAfterInterpret(cmds);
     }
 
     @Test
@@ -89,15 +80,10 @@ public class BuiltlnTests {
         TestCase.assertEquals((int) s.pop(), 1);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void over2() {
-        try {
-            Command[] cmds = { new Push(1), new Plus() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Push(1), new Plus() };
+        stackAfterInterpret(cmds);
     }
 
     @Test
@@ -110,15 +96,10 @@ public class BuiltlnTests {
         TestCase.assertEquals((int) s.pop(), 3);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void rot2() {
-        try {
-            Command[] cmds = { new Push(1), new Push(2), new Rot() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Push(1), new Push(2), new Rot() };
+        stackAfterInterpret(cmds);
     }
 
     @Test
@@ -130,14 +111,9 @@ public class BuiltlnTests {
         TestCase.assertEquals((int) s.pop(), 2);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void swap2() {
-        try {
-            Command[] cmds = { new Push(1), new Swap() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Push(1), new Swap() };
+        stackAfterInterpret(cmds);
     }
 }

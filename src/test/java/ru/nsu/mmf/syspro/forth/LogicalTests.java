@@ -1,6 +1,7 @@
 package ru.nsu.mmf.syspro.forth;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
 
@@ -54,15 +55,10 @@ public class LogicalTests {
         TestCase.assertEquals((int) s.pop(), 0);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void equals3() {
-        try {
-            Command[] cmds = { new Push(2), new Equals() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Push(2), new Equals() };
+        stackAfterInterpret(cmds);
     }
 
     @Test
@@ -81,15 +77,10 @@ public class LogicalTests {
         TestCase.assertEquals((int) s.pop(), 0);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void less3() {
-        try {
-            Command[] cmds = { new Push(1), new Less() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Push(1), new Less() };
+        stackAfterInterpret(cmds);
     }
 
     @Test
@@ -108,14 +99,10 @@ public class LogicalTests {
         TestCase.assertEquals((int) s.pop(), 0);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void more3() {
-        try {
-            Command[] cmds = { new Push(2), new More() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+
+        Command[] cmds = { new Push(2), new More() };
+        stackAfterInterpret(cmds);
     }
 }

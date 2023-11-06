@@ -1,5 +1,7 @@
 package ru.nsu.mmf.syspro.forth;
 
+import java.util.EmptyStackException;
+
 import org.junit.Test;
 
 import junit.framework.TestCase;
@@ -59,11 +61,10 @@ public class AdvancedTests {
         TestCase.assertEquals(" ok\n", date[2].toString());
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void if5() {
         Object[] date = create();
         String[] words = "if then ;".split(" ");
         ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" Error: pop from empty stack\n", date[2].toString());
     }
 }

@@ -1,6 +1,7 @@
 package ru.nsu.mmf.syspro.forth;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
 
@@ -48,15 +49,10 @@ public class ArithmeticTests {
         TestCase.assertEquals((int) s.pop(), 3);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void plus2() {
-        try {
-            Command[] cmds = { new Push(1), new Plus() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Push(1), new Plus() };
+        stackAfterInterpret(cmds);
     }
 
     @Test
@@ -67,16 +63,10 @@ public class ArithmeticTests {
         TestCase.assertEquals((int) s.pop(), 4);
     }
 
-    @Test
+    @Test(expected = ArithmeticException.class)
     public void divideZero() {
-        try {
-            Command[] cmds = { new Push(8), new Push(0), new Divide() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            System.out.print(e);
-            TestCase.assertEquals(e.toString(), "java.lang.ArithmeticException: / by zero");
-        }
+        Command[] cmds = { new Push(8), new Push(0), new Divide() };
+        stackAfterInterpret(cmds);
     }
 
     @Test
@@ -103,15 +93,10 @@ public class ArithmeticTests {
         TestCase.assertEquals((int) s.pop(), -2);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void minus2() {
-        try {
-            Command[] cmds = { new Push(1), new Divide() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Push(1), new Divide() };
+        stackAfterInterpret(cmds);
     }
 
     @Test
@@ -122,26 +107,16 @@ public class ArithmeticTests {
         TestCase.assertEquals((int) s.pop(), 2);
     }
 
-    @Test
+    @Test(expected = ArithmeticException.class)
     public void moduloZero() {
-        try {
-            Command[] cmds = { new Push(1), new Push(0), new Divide() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.lang.ArithmeticException: / by zero");
-        }
+        Command[] cmds = { new Push(1), new Push(0), new Divide() };
+        stackAfterInterpret(cmds);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void modulo2() {
-        try {
-            Command[] cmds = { new Push(1), new Plus() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Push(1), new Plus() };
+        stackAfterInterpret(cmds);
     }
 
     @Test
@@ -152,14 +127,9 @@ public class ArithmeticTests {
         TestCase.assertEquals((int) s.pop(), 24);
     }
 
-    @Test
+    @Test(expected = EmptyStackException.class)
     public void multiply2() {
-        try {
-            Command[] cmds = { new Push(1), new Multiply() };
-            stackAfterInterpret(cmds);
-            TestCase.fail();
-        } catch (Exception e) {
-            TestCase.assertEquals(e.toString(), "java.util.EmptyStackException");
-        }
+        Command[] cmds = { new Push(1), new Multiply() };
+        stackAfterInterpret(cmds);
     }
 }
