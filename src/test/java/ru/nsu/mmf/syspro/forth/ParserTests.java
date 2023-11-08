@@ -55,6 +55,18 @@ public class ParserTests {
     }
 
     @Test
+    public void parser0() {
+        Object[] date = create();
+        String[] words = "1".split(" ");
+        List<Command> commands = ((Parser) date[0]).parse(words);
+        String[] sample = { "Push" };
+        for (Integer i = 0; i < commands.size(); i++) {
+            TestCase.assertEquals(commands.get(i).getClass().getName(),
+                    "ru.nsu.mmf.syspro.forth.Commands." + sample[i]);
+        }
+    }
+
+    @Test
     public void parser1() {
         Object[] date = create();
         String[] words = "+ - * /".split(" ");
@@ -81,12 +93,12 @@ public class ParserTests {
     @Test
     public void parser3() {
         Object[] date = create();
-        String[] words = "< = >".split(" ");
+        String[] words = "if 5 . then ;".split(" ");
         List<Command> commands = ((Parser) date[0]).parse(words);
-        String[] sample = { "Less", "Equals", "More" };
+        String[] sample = { "If" };
         for (Integer i = 0; i < commands.size(); i++) {
             TestCase.assertEquals(commands.get(i).getClass().getName(),
-                    "ru.nsu.mmf.syspro.forth.Commands.LogicalOperations." + sample[i]);
+                    "ru.nsu.mmf.syspro.forth.Commands.AdvancedCommands." + sample[i]);
         }
     }
 }

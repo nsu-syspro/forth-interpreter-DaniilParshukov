@@ -37,10 +37,18 @@ public class CommandsTests {
     }
 
     @Test
-    public void numberOnStack() {
+    public void push1() {
         Command[] cmds = { new Push(8) };
         Stack<Integer> s = stackAfterInterpret(cmds);
         TestCase.assertEquals(s.size(), 1);
         TestCase.assertEquals((int) s.pop(), 8);
+    }
+
+    @Test
+    public void push2() {
+        Command[] cmds = { new Push(-12) };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 1);
+        TestCase.assertEquals((int) s.pop(), -12);
     }
 }

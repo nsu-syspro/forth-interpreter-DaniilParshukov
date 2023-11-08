@@ -1,10 +1,16 @@
 package ru.nsu.mmf.syspro.forth;
 
+import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.List;
+import java.util.Stack;
 
 import org.junit.Test;
 
 import junit.framework.TestCase;
+import ru.nsu.mmf.syspro.forth.Commands.Command;
+import ru.nsu.mmf.syspro.forth.Commands.Push;
+import ru.nsu.mmf.syspro.forth.Commands.AdvancedCommands.If;
 
 public class AdvancedTests {
     private static class TestPrinter implements Printer {
@@ -20,51 +26,60 @@ public class AdvancedTests {
         }
     }
 
-    private Object[] create() {
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Parser parser = new Parser(ctx);
+    private Stack<Integer> stackAfterInterpret(Command[] cmds) {
+        Context ctx = new Context(new TestPrinter(new StringBuilder()));
         Interpreter interpreter = new Interpreter(ctx);
-        return new Object[] { interpreter, parser, sb };
+        List<Command> list = new ArrayList<>();
+        for (Command cmd : cmds) {
+            list.add(cmd);
+        }
+        interpreter.interpret(list);
+        return ctx.S;
     }
 
     @Test
     public void if1() {
-        Object[] date = create();
-        String[] words = "1 if 1 . then ; 2 .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" 1 2\n", date[2].toString());
+        List<Command> list = new ArrayList<>();
+        list.add(new Push(2));
+        Command[] cmds = { new Push(1), new If(list) };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 1);
+        TestCase.assertEquals((int) s.pop(), 2);
     }
 
     @Test
     public void if2() {
-        Object[] date = create();
-        String[] words = "1 2 = if .\" 1=2\" then ;".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" ok\n", date[2].toString());
+        List<Command> list = new ArrayList<>();
+        list.add(new Push(2));
+        Command[] cmds = { new Push(0), new If(list) };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 0);
     }
 
     @Test
     public void if3() {
-        Object[] date = create();
-        String[] words = "8 4 2 0 dup 0 = if drop then ; / .".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" 2\n", date[2].toString());
+        List<Command> list = new ArrayList<>();
+        list.add(new Push(2));
+        list.add(new Push(3));
+        list.add(new Push(4));
+        Command[] cmds = { new Push(142), new If(list) };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 3);
+        TestCase.assertEquals((int) s.pop(), 4);
+        TestCase.assertEquals((int) s.pop(), 3);
+        TestCase.assertEquals((int) s.pop(), 2);
     }
 
     @Test
     public void if4() {
-        Object[] date = create();
-        String[] words = "1 if then ;".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
-        TestCase.assertEquals(" ok\n", date[2].toString());
+        Command[] cmds = { new Push(1), new If(new ArrayList<>()) };
+        Stack<Integer> s = stackAfterInterpret(cmds);
+        TestCase.assertEquals(s.size(), 0);
     }
 
     @Test(expected = EmptyStackException.class)
     public void if5() {
-        Object[] date = create();
-        String[] words = "if then ;".split(" ");
-        ((Interpreter) date[0]).interpret(((Parser) date[1]).parse(words));
+        Command[] cmds = { new If(new ArrayList<>()) };
+        stackAfterInterpret(cmds);
     }
 }

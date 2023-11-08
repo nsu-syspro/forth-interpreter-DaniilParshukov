@@ -1,4 +1,4 @@
-package ru.nsu.mmf.syspro.forth.Commands.AdvancedСommands;
+package ru.nsu.mmf.syspro.forth.Commands.AdvancedCommands;
 
 import java.util.List;
 

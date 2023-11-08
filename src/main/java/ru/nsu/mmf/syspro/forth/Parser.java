@@ -6,7 +6,7 @@ import java.util.List;
 import ru.nsu.mmf.syspro.forth.Commands.Command;
 import ru.nsu.mmf.syspro.forth.Commands.PrintLines;
 import ru.nsu.mmf.syspro.forth.Commands.Push;
-import ru.nsu.mmf.syspro.forth.Commands.AdvancedСommands.If;
+import ru.nsu.mmf.syspro.forth.Commands.AdvancedCommands.If;
 import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Divide;
 import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Minus;
 import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Modulo;
