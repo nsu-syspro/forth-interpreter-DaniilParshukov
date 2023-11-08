@@ -8,4 +8,12 @@ public class Drop implements Command {
     public void apply(Context ctx) {
         ctx.S.pop();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Drop)) {
+            return false;
+        }
+        return true;
+    }
 }

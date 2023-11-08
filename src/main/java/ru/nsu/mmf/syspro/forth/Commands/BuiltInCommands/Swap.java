@@ -11,4 +11,12 @@ public class Swap implements Command {
         ctx.S.push(a);
         ctx.S.push(b);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Swap)) {
+            return false;
+        }
+        return true;
+    }
 }

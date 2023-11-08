@@ -87,11 +87,7 @@ public class PrintTests {
 
     @Test
     public void printLines() {
-        List<String> str = new ArrayList<>();
-        str.add("Print");
-        str.add("Line");
-        Command[] cmds = { new PrintLines(str) };
-        StringBuilder sb = stringBuilderInterpret(cmds);
+        StringBuilder sb = stringBuilderInterpret(new Command[] { new PrintLines(List.of("Print", "Line")) });
         TestCase.assertEquals(" Print Line\n", sb.toString());
     }
 }

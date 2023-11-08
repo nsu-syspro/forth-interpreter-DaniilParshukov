@@ -13,4 +13,12 @@ public class Push implements Command {
     public Push(int num) {
         this.num = num;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Push) {
+            return num == ((Push) obj).num;
+        }
+        return false;
+    }
 }

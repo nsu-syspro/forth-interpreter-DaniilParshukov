@@ -9,4 +9,12 @@ public class Exit implements Command {
     public void apply(Context ctx) {
         ctx.status = STATUS.EXIT;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Exit)) {
+            return false;
+        }
+        return true;
+    }
 }

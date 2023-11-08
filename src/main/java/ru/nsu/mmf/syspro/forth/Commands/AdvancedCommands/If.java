@@ -20,4 +20,13 @@ public class If implements Command {
     public If(List<Command> commands) {
         this.commands = commands;
     }
+
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof If) {
+            return commands.equals(((If) obj).commands);
+        }
+        return false;
+    }
 }

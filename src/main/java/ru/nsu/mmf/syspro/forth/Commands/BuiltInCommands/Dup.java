@@ -9,4 +9,12 @@ public class Dup implements Command {
         int a = ctx.S.peek();
         ctx.S.push(a);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Dup)) {
+            return false;
+        }
+        return true;
+    }
 }

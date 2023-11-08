@@ -10,4 +10,12 @@ public class Print implements Command {
         ctx.printer.print(" " + ctx.S.pop().toString());
         ctx.status = STATUS.DEFAULT;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Print)) {
+            return false;
+        }
+        return true;
+    }
 }

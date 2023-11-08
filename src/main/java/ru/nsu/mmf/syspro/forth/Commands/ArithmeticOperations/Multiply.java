@@ -5,4 +5,12 @@ public class Multiply extends Arithmetic {
     public int сalculate(int a, int b) {
         return a * b;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Multiply)) {
+            return false;
+        }
+        return true;
+    }
 }

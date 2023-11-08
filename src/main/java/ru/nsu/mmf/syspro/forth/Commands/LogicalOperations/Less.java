@@ -14,4 +14,12 @@ public class Less implements Command {
             ctx.S.push(0);
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Less)) {
+            return false;
+        }
+        return true;
+    }
 }

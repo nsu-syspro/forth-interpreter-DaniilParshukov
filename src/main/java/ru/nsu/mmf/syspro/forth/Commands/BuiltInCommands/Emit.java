@@ -14,6 +14,13 @@ public class Emit implements Command {
         char c = (char) n;
         ctx.printer.print(" " + c);
         ctx.status = STATUS.DEFAULT;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Emit)) {
+            return false;
+        }
+        return true;
     }
 }

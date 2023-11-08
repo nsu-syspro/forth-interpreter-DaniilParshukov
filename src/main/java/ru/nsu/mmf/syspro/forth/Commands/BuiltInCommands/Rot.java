@@ -13,4 +13,12 @@ public class Rot implements Command {
         ctx.S.push(c);
         ctx.S.push(b);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Rot)) {
+            return false;
+        }
+        return true;
+    }
 }

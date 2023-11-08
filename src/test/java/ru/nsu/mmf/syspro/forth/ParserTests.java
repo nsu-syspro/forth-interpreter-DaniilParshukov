@@ -6,99 +6,67 @@ import org.junit.Test;
 
 import junit.framework.TestCase;
 import ru.nsu.mmf.syspro.forth.Commands.Command;
+import ru.nsu.mmf.syspro.forth.Commands.Push;
+import ru.nsu.mmf.syspro.forth.Commands.AdvancedCommands.If;
+import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Divide;
+import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Minus;
+import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Multiply;
+import ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations.Plus;
+import ru.nsu.mmf.syspro.forth.Commands.BuiltInCommands.Cr;
+import ru.nsu.mmf.syspro.forth.Commands.BuiltInCommands.Drop;
+import ru.nsu.mmf.syspro.forth.Commands.BuiltInCommands.Dup;
+import ru.nsu.mmf.syspro.forth.Commands.BuiltInCommands.Emit;
+import ru.nsu.mmf.syspro.forth.Commands.BuiltInCommands.Exit;
+import ru.nsu.mmf.syspro.forth.Commands.BuiltInCommands.Over;
+import ru.nsu.mmf.syspro.forth.Commands.BuiltInCommands.Print;
+import ru.nsu.mmf.syspro.forth.Commands.BuiltInCommands.Rot;
+import ru.nsu.mmf.syspro.forth.Commands.BuiltInCommands.Swap;
 
 public class ParserTests {
-
-    private static class TestPrinter implements Printer {
-        StringBuilder sb;
-
-        @Override
-        public void print(String line) {
-            sb.append(line);
-        }
-
-        public TestPrinter(StringBuilder sb) {
-            this.sb = sb;
-        }
-    }
-
-    private Object[] create() {
-        StringBuilder sb = new StringBuilder();
-        Printer printer = new TestPrinter(sb);
-        Context ctx = new Context(printer);
-        Parser parser = new Parser(ctx);
-        return new Object[] { parser, sb };
-    }
-
-    @Test
+    @Test(expected = RuntimeException.class)
     public void parseError1() {
-        Object[] date = create();
-        String[] words = "if 1 2 + . 1 0 /".split(" ");
-        ((Parser) date[0]).parse(words);
-        TestCase.assertEquals(" Parse Error: miss stopAt: then ;", date[1].toString());
+        (new Parser()).parse("if 1 2 + . 1 0 /".split(" "));
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void parseError2() {
-        Object[] date = create();
-        String[] words = "1 2 max".split(" ");
-        ((Parser) date[0]).parse(words);
-        TestCase.assertEquals(" Parse Error: unknow command (max)", date[1].toString());
+        (new Parser()).parse("1 2 max".split(" "));
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void parseError3() {
-        Object[] date = create();
-        String[] words = ".\" string with no end".split(" ");
-        ((Parser) date[0]).parse(words);
-        TestCase.assertEquals(" Parse Error: Absent \"", date[1].toString());
+        (new Parser()).parse(".\" string with no end".split(" "));
     }
 
     @Test
     public void parser0() {
-        Object[] date = create();
-        String[] words = "1".split(" ");
-        List<Command> commands = ((Parser) date[0]).parse(words);
-        String[] sample = { "Push" };
-        for (Integer i = 0; i < commands.size(); i++) {
-            TestCase.assertEquals(commands.get(i).getClass().getName(),
-                    "ru.nsu.mmf.syspro.forth.Commands." + sample[i]);
-        }
+        TestCase.assertTrue((new Parser()).parse("1".split(" ")).get(0).equals(new Push(1)));
     }
 
     @Test
     public void parser1() {
-        Object[] date = create();
-        String[] words = "+ - * /".split(" ");
-        List<Command> commands = ((Parser) date[0]).parse(words);
-        String[] sample = { "Plus", "Minus", "Multiply", "Divide" };
-        for (Integer i = 0; i < commands.size(); i++) {
-            TestCase.assertEquals(commands.get(i).getClass().getName(),
-                    "ru.nsu.mmf.syspro.forth.Commands.ArithmeticOperations." + sample[i]);
+        List<Command> simple = List.of(new Plus(), new Minus(), new Multiply(), new Divide());
+        List<Command> commands = (new Parser()).parse("+ - * /".split(" "));
+        for (int i = 0; i < commands.size(); i++) {
+            TestCase.assertTrue(commands.get(i).equals(simple.get(i)));
         }
     }
 
     @Test
     public void parser2() {
-        Object[] date = create();
-        String[] words = "cr drop dup emit exit over . rot swap".split(" ");
-        List<Command> commands = ((Parser) date[0]).parse(words);
-        String[] sample = { "Cr", "Drop", "Dup", "Emit", "Exit", "Over", "Print", "Rot", "Swap" };
-        for (Integer i = 0; i < commands.size(); i++) {
-            TestCase.assertEquals(commands.get(i).getClass().getName(),
-                    "ru.nsu.mmf.syspro.forth.Commands.BuiltInCommands." + sample[i]);
+        List<Command> simple = List.of(new Cr(), new Drop(), new Dup(), new Emit(), new Exit(), new Over(), new Print(), new Rot(), new Swap());
+        List<Command> commands = (new Parser()).parse("cr drop dup emit exit over . rot swap".split(" "));
+        for (int i = 0; i < commands.size(); i++) {
+            TestCase.assertTrue(commands.get(i).equals(simple.get(i)));
         }
     }
 
     @Test
     public void parser3() {
-        Object[] date = create();
-        String[] words = "if 5 . then ;".split(" ");
-        List<Command> commands = ((Parser) date[0]).parse(words);
-        String[] sample = { "If" };
-        for (Integer i = 0; i < commands.size(); i++) {
-            TestCase.assertEquals(commands.get(i).getClass().getName(),
-                    "ru.nsu.mmf.syspro.forth.Commands.AdvancedCommands." + sample[i]);
+        List<Command> simple = List.of(new If(List.of(new Push(5), new Print())));
+        List<Command> commands = (new Parser()).parse("if 5 . then ;".split(" "));
+        for (int i = 0; i < commands.size(); i++) {
+            TestCase.assertTrue(commands.get(i).equals(simple.get(i)));
         }
     }
 }

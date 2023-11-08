@@ -26,18 +26,12 @@ import ru.nsu.mmf.syspro.forth.Commands.LogicalOperations.Less;
 import ru.nsu.mmf.syspro.forth.Commands.LogicalOperations.More;
 
 public class Parser {
-    private Context ctx;
     private int pos;
-
-    public Parser(Context ctx) {
-        this.ctx = ctx;
-    }
 
     public List<Command> parse(String[] words) {
         pos = 0;
         return getCommands(words, null, null);
     }
-
     private List<Command> getCommands(String[] words, String stopAt1, String stopAt2) {
         List<Command> commands = new ArrayList<>();
         for (; pos < words.length; pos++) {
@@ -49,24 +43,17 @@ public class Parser {
                     }
                 }
             }
-            Command cmd = getCmd(words);
-            if (cmd == null) {
-                return null;
-            } else {
-                commands.add(cmd);
-            }
+            commands.add(getCmd(words));
         }
         if (stopAt1 != null) {
-            ctx.printer.print(" Parse Error: miss stopAt: " + stopAt1.toString() + " " + stopAt2.toString());
-            return null;
+            throw new RuntimeException("Miss stopAt: " + stopAt1.toString() + " " + stopAt2.toString());
         }
         return commands;
     }
 
     private Command getCmd(String[] words) {
         try {
-            int num = Integer.parseInt(words[pos]);
-            return new Push(num);
+            return new Push(Integer.parseInt(words[pos]));
         } catch (NumberFormatException e) {
             return switch (words[pos]) {
                 case "+" -> new Plus();
@@ -88,22 +75,15 @@ public class Parser {
                 case "=" -> new Equals();
                 case ".\"" -> {
                     List<String> str = getLinesToPrint(words);
-                    if (str == null) {
-                        yield null;
-                    }
                     yield new PrintLines(str);
                 }
                 case "if" -> {
                     pos++;
                     List<Command> commands = getCommands(words, "then", ";");
-                    if (commands == null) {
-                        yield null;
-                    }
                     yield new If(commands);
                 }
                 default -> {
-                    ctx.printer.print(" Parse Error: unknow command (" + words[pos] + ")");
-                    yield null;
+                    throw new RuntimeException("Unknow command (" + words[pos] + ")");
                 }
             };
         }
@@ -118,9 +98,7 @@ public class Parser {
             } else {
                 str.add(words[pos]);
             }
-            ctx.status = STATUS.DEFAULT;
         }
-        ctx.printer.print(" Parse Error: Absent \"");
-        return null;
+        throw new RuntimeException("Absent \"");
     }
 }

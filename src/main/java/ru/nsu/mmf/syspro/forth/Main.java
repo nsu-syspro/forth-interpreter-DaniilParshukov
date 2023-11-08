@@ -8,7 +8,7 @@ public class Main {
         Printer printer = new ConsolePrinter();
         Context ctx = new Context(printer);
         Interpreter itr = new Interpreter(ctx);
-        Parser parser = new Parser(ctx);
+        Parser parser = new Parser();
         while (!(ctx.status == STATUS.EXIT)) {
             String line = in.nextLine();
             if (line.equals("")) {
@@ -18,7 +18,7 @@ public class Main {
             try {
                 itr.interpret(parser.parse(words));
             } catch (Exception e) {
-                ctx.printer.print(e + "\n");
+                ctx.printer.print(" " + e + "\n");
             }
         }
         in.close();

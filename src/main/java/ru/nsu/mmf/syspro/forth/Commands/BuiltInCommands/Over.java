@@ -11,4 +11,12 @@ public class Over implements Command {
         ctx.S.push(a);
         ctx.S.push(b);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Over)) {
+            return false;
+        }
+        return true;
+    }
 }

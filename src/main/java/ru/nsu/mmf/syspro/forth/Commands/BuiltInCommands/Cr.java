@@ -10,4 +10,12 @@ public class Cr implements Command {
         ctx.printer.print("\n");
         ctx.status = STATUS.DEFAULT;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Cr)) {
+            return false;
+        }
+        return true;
+    }
 }

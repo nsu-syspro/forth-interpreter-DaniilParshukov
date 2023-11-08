@@ -20,4 +20,12 @@ public class PrintLines implements Command {
     public PrintLines(List<String> str) {
         this.str = str;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof PrintLines) {
+            return str.equals(((PrintLines) obj).str);
+        }
+        return false;
+    }
 }

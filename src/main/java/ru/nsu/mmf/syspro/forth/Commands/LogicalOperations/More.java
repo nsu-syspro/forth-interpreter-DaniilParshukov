@@ -14,4 +14,12 @@ public class More implements Command {
             ctx.S.push(0);
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof More)) {
+            return false;
+        }
+        return true;
+    }
 }
