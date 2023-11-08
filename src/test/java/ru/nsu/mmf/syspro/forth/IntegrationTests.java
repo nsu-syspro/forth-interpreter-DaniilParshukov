@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class IntegrationTest {
+public class IntegrationTests {
 
     @Test
     public void testAll() throws URISyntaxException, IOException {
@@ -35,7 +35,8 @@ public class IntegrationTest {
         }
     }
 
-    private static void testOne(@NotNull TestRunner testRunner, @NotNull ErrorCollector errorCollector, @NotNull Path testFile) {
+    private static void testOne(@NotNull TestRunner testRunner, @NotNull ErrorCollector errorCollector,
+            @NotNull Path testFile) {
         try {
             TestCase testCase = TestCase.create(testFile);
             testCase.check(testRunner);
@@ -52,7 +53,7 @@ public class IntegrationTest {
                 Expected format:
                 in:
                 <input_data>
-                       
+
                 out:
                 <output_data>
                 """.formatted(testName, msg);
@@ -66,7 +67,7 @@ public class IntegrationTest {
                 System.setIn(new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8)));
                 ByteArrayOutputStream newOutStream = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(newOutStream));
-                Main.main(new String[]{});
+                Main.main(new String[] {});
                 return newOutStream.toString(StandardCharsets.UTF_8);
             } finally {
                 System.setIn(oldIn);

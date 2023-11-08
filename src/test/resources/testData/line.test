@@ -3,5 +3,5 @@ in:
 ." third"
 
 out:
-firstsecond line
-third
+ first second line
+ third
